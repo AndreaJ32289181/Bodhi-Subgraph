@@ -1,0 +1,36 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: BodhiEthereum
+    network: mainnet
+    source:
+      address: "0x970E035E2a013cf4bECD67E300d65BC32A56D826"
+      abi: BodhiEthereum
+      startBlock: 5690561
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Mint
+        - OwnershipTransferred
+        - Transfer
+        - Transfer1
+        - Approval
+      abis:
+        - name: BodhiEthereum
+          file: ./abis/BodhiEthereum.json
+      eventHandlers:
+        - event: Mint(uint256,indexed address,uint256)
+          handler: handleMint
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Transfer(indexed address,indexed address,uint256,bytes)
+          handler: handleTransfer
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer1
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+      file: ./src/mapping.ts

@@ -1,0 +1,7 @@
+type MintBOE @entity {
+  id: ID!
+  count: BigInt!
+  supply: BigInt! # uint256
+  to: Bytes! # address
+  amount: BigInt!
+}
